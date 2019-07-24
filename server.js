@@ -8,8 +8,13 @@ var cors        = require('cors');
 var apiRoutes         = require('./routes/api.js');
 var fccTestingRoutes  = require('./routes/fcctesting.js');
 var runner            = require('./test-runner');
-
+var helmet = require ('helmet');
 var app = express();
+//Security features////////////////////////////////////////////////////////////
+//Avoid inferring the response MIME type
+app.use(helmet.noSniff());
+//Prevent cross-site scripting using 'X-XSS-Protection'
+app.use(helmet.xssFilter());
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
@@ -36,6 +41,8 @@ app.use(function(req, res, next) {
     .type('text')
     .send('Not Found');
 });
+
+
 
 //Start our server and tests!
 app.listen(process.env.PORT || 3000, function () {
