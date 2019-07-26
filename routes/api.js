@@ -24,12 +24,12 @@ module.exports = function (app) {
       var returnUnit = convertHandler.getReturnUnit(initUnit);
       var toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
       //error handler
-      if (returnUnit == 'invalid unit' && initNum == 'invalid number') {
-        return res.send('invalid number and unit');
-      } else if (returnUnit == 'invalid unit') {
-        return res.send('invalid unit');
+      if (initUnit == 'invalid unit' && initNum == 'invalid number') {
+        return res.json({initNum: initNum, initUnit: initUnit, string: "invalid number and unit"});
+      } else if (initUnit == "invalid unit") {
+        return res.json({initNum: initNum, initUnit: initUnit, string: "invalid unit"});
       } else if(initNum == 'invalid number') {
-        return res.send('invalid number');
+        return res.json({initNum: initNum, initUnit: initUnit, string: "invalid number"});
       }
         //response
       return res.json({initNum: initNum, initUnit: initUnit, returnNum: returnNum, returnUnit: returnUnit, string: toString});
