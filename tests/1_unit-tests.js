@@ -61,7 +61,7 @@ suite('Unit Tests', function(){
     test('For Each Valid Unit Inputs', function(done) {
       var input = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
       input.forEach(function(ele) {
-        assert.equal(convertHandler.getUnit(ele), ele.toLowerCase());
+        assert.notEqual(convertHandler.getUnit(ele), 'invalid unit');
       });
       done();
     });
@@ -92,10 +92,10 @@ suite('Unit Tests', function(){
   suite('Function convertHandler.spellOutUnit(unit)', function() {
     
     test('For Each Valid Unit Inputs', function(done) {
-      var input = ['gal','l','mi','km','lbs','kg'];
+      var input = ['gal','l','mi','km','kg','lbs'];
       var expect = ['gallons','litres','miles','kilometers','kilograms','pounds'];
       input.forEach(function(ele, i) {
-        assert.equal(convertHandler.getReturnUnit(ele), expect[i]);
+        assert.equal(convertHandler.spellOutUnit(ele), expect[i]);
       });
       done();
     });
@@ -112,7 +112,7 @@ suite('Unit Tests', function(){
     });
     
     test('L to Gal', function(done) {
-      var input = [5, 'L'];
+      var input = [5, 'l'];
       var expected = 1.32086;
       assert.approximately(convertHandler.convert(input[0], input[1]), expected, 0.1);
       done();
